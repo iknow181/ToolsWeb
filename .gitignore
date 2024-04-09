@@ -1,4 +1,22 @@
-*.pyc
-*~
-__pycache__
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+
+# IDE or editor specific files
+.idea/
+.vscode/
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Environment variables file
+.env
+
+# System or temporary files
 .DS_Store
+Thumbs.db
