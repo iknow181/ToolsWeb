@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap 样式 -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap-grid.css"/>
+    <link rel="stylesheet" href="/static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/static/css/bootstrap-reboot.css"/>
+    <title>Welcome</title>
+</head>
+<body>
+<!--导航-->
+<nav>
+    <div class="container">
+        <div class="row">
+            <!--加阴影-->
+            <div class="col shadow-sm">
+                <nav class="navbar p-1 navbar-expand-lg navbar-light bg-white">
+                    <!--小屏幕不加logo-->
+                    <a class="navbar-brand navbar-toggler border-0" href="#">
+                        <!--加载图片作为logo-->
+                        <img src="/static/images/tx.jpg" class="img-fluid" style="max-width: 90px;" alt="touxiang"/>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportContent" aria-controls="navbarSupportContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">首页<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">链接1</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">链接2</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    下拉菜单
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item">item1</a>
+                                    <a class="dropdown-item">item2</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item">item3</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">不可用的按钮</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</nav>
