@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>menu</title>
-</head>
+{% include 'header.html' %}  }
+<script>
+  // 在页面加载前，使用 JavaScript 动态设置标题
+  window.onload = function() {
+    document.title = "Menu";
+  };
+</script>
 <body>
+<style>
+    /* 自定义菜单背景色 */
+    .custom-menu {
+        background-color: #f8f9fa; /* 淡灰色背景 */
+    }
 
-</body>
-</html>
+    /* 自定义菜单项颜色 */
+    .custom-menu-item {
+        background-color: #cce5ff; /* 淡蓝色背景 */
+        color: #007bff; /* 深蓝色文字 */
+    }
+
+    /* 鼠标悬停时改变菜单项颜色 */
+    .custom-menu-item:hover {
+        background-color: #0056b3; /* 深蓝色背景 */
+        color: #ffffff; /* 白色文字 */
+    }
+</style>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card custom-menu"> <!-- 添加自定义菜单背景色类 -->
+                <div class="card-header">
+                    你可以...哟
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action custom-menu-item">nmap</a>
+                        <a href="#" class="list-group-item list-group-item-action custom-menu-item">数据加密</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% include 'footer.html' %}

@@ -12,10 +12,16 @@ app = Flask(__name__,
 def welcome():
     return flask.render_template('welcome.html')
 
-# @app.route('/menu')
-# def menu():
-#
-#     return flask.render_template('')
+
+@app.route('/menu')
+def menu():
+    return flask.render_template('menu.html')
+
+
+@app.route('/menu')
+def nmap():
+    return flask.render_template('nmap.html')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, debug=True)
