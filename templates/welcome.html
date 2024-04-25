@@ -5,18 +5,24 @@
     document.title = "Welcome";
   };
 </script>
-    <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="card-title">Welcome to iknow's Little World</h1>
-                        <p class="card-text">Click to start your journey</p>
-                        <a href="{{ url_for('menu') }}" class="btn btn-primary">Start Your Journey</a>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="card text-center shadow">
+                <div class="card-header bg-info text-white">
+                    <h1>Welcome to iknow's Little World</h1>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Click to start your journey</p>
+                    <a href="{{ url_for('menu') }}" class="btn btn-lg btn-primary">Start Your Journey</a>
+                </div>
+                <div class="card-footer bg-info text-white">
+                    <small>Enjoy your adventure!</small>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 <br>
 {% include 'footer.html' %}
