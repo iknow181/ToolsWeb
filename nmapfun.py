@@ -1,6 +1,7 @@
 #  扫描器
 import nmapfun
 import nmap
+from ipaddress import IPv4Network
 
 
 def query(user_ip):
@@ -22,3 +23,13 @@ def query(user_ip):
             host_info["os_info"] = {"osfamily": os_info['osfamily'], "osgen": os_info['osgen']}
         result.append(host_info)
     return result
+
+
+def get_user_network(user_ip):
+    # 假设用户的 IP 地址为 IPv4 格式，例如 '192.168.1.100'
+    # 提取出子网前缀，例如 '192.168.1'
+    user_subnet_prefix = '.'.join(user_ip.split('.')[:-1])
+    # 将子网前缀与子网掩码组合起来，例如 '192.168.1.0/24'
+    user_network = user_subnet_prefix + '.0/24'
+    return user_network
+
