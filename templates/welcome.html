@@ -5,19 +5,66 @@
     document.title = "Welcome";
   };
 </script>
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-center mt-5">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card text-center shadow">
                 <div class="card-header bg-info text-white">
                     <h1>Welcome to iknow's Little World</h1>
                 </div>
                 <div class="card-body">
                     <p class="card-text">Click to start your journey</p>
-                    <a href="{{ url_for('menu') }}" class="btn btn-lg btn-primary">Start Your Journey</a>
+                    <a href="{{ url_for('Menu') }}" class="btn btn-lg btn-primary ">Start Your Journey</a>
                 </div>
                 <div class="card-footer bg-info text-white">
                     <small>Enjoy your adventure!</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row mt-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 一言 -->
+                        <div class="hitokotos">
+                            <div class="hitokoto-all">
+                                <div class="hitokoto-text"><span id="hitokoto_text">人们总是在意得不到的，从而忘记了已经拥有的</span></div>
+                                <div class="hitokoto-from">-「&nbsp;<span id="from_text">东滨乙</span>&nbsp;」</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 时间 -->
+                        <div class="time">
+                            <div class="timeshow" id="time">
+                                <script>
+                                  // 更新时间函数
+                                  function updateTime() {
+                                    var now = new Date();
+                                    var year = now.getFullYear();
+                                    var month = now.getMonth() + 1;
+                                    var day = now.getDate();
+                                    var hours = now.getHours();
+                                    var minutes = now.getMinutes();
+                                    var seconds = now.getSeconds();
+
+                                    // 在页面中找到时间显示的元素并更新内容
+                                    document.getElementById("time").innerHTML = year + "年 " + month + "月 " + day + "日 " + hours + ":" + minutes + ":" + seconds;
+                                  }
+
+                                  // 在页面加载时立即调用 updateTime 函数，并且每秒钟更新一次
+                                  window.onload = function() {
+                                    updateTime(); // 立即更新时间
+                                    setInterval(updateTime, 1000); // 每秒钟更新一次
+                                  };
+                                </script>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
