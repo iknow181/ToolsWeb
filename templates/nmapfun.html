@@ -40,7 +40,7 @@
 
   // 返回到菜单页面
   function goBackToMenu() {
-      window.location.href = "/menu";
+      window.location.href = "/Menu";
   }
 </script>
 <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
@@ -48,11 +48,15 @@
     <div class="row">
         <div class="col-md-6 bg-primary-light">
             <h2>查询</h2>
-            <form id="userForm" action="{{ url_for('nmapfun') }}" method="POST">
+            <form id="userForm" action="{{ url_for('NmapFun') }}" method="POST">
                 <input type="hidden" name="action" value="query_myself">
                 <button type="submit" class="btn btn-primary" onclick="showResults()">查看你的主机</button>
             </form>
-            <form id="otherForm" action="{{ url_for('nmapfun') }}" method="POST">
+            <form id="myNetworkForm" action="{{ url_for('NmapFun') }}" method="POST">
+                <input type="hidden" name="action" value="query_user_network">
+                <button type="submit" class="btn btn-info" onclick="showNetworkInfo()">查看你的网段</button>
+            </form>
+            <form id="otherForm" action="{{ url_for('NmapFun') }}" method="POST">
                 <input type="hidden" name="action" value="query_other_user">
                 <button type="button" class="btn btn-secondary" onclick="showOtherInfoInput()">查看其他主机</button>
                 <div id="otherInfoInput" style="display: none;">
@@ -60,16 +64,16 @@
                     <button type="submit" class="btn btn-primary">提交</button>
                 </div>
             </form>
-            <form id="networkForm" action="{{ url_for('nmapfun') }}" method="POST">
+            <form id="networkForm" action="{{ url_for('NmapFun') }}" method="POST">
                 <input type="hidden" name="action" value="query_network">
                 <button type="button" class="btn btn-info" onclick="showNetworkInput()">查看网段信息</button>
                 <div id="networkInput" style="display: none;">
-                    <input type="text" name="network" placeholder="输入 IP 网段" required pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2}" class="form-control mb-2">
+                    <input type="text" name="network" placeholder="输入 IP 网段，例如192.168.1.0/24" required pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2}" class="form-control mb-2">
                     <button type="submit" class="btn btn-primary">提交</button>
                 </div>
             </form>
             <!-- 返回按钮 -->
-            <button type="button" class="btn btn-outline-primary mt-3" onclick="goBackToMenu()">返回</button>
+            <button type="button" class="btn btn-outline-primary mt-3" onclick="goBackToMenu()">返回菜单</button>
         </div>
         <div class="col-md-6 bg-light">
             <div id="queryResults" style="max-height: 400px; overflow-y: auto;">
