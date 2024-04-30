@@ -1,0 +1,457 @@
+{% include 'header.html' %}
+<div class="container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="encrypt-tab" data-toggle="tab" href="#encrypt" role="tab" aria-controls="encrypt" aria-selected="true">加密/解密</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="url-tab" data-toggle="tab" href="#url" role="tab" aria-controls="url" aria-selected="false">URL转码</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="ascii-tab" data-toggle="tab" href="#ascii" role="tab" aria-controls="ascii" aria-selected="false">ASCII转换</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="unicode-tab" data-toggle="tab" href="#unicode" role="tab" aria-controls="unicode" aria-selected="false">Unicode</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="md5-tab" data-toggle="tab" href="#md5" role="tab" aria-controls="md5" aria-selected="false">MD5加密</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="conversion-tab" data-toggle="tab" href="#conversion" role="tab" aria-controls="conversion" aria-selected="false">进制转换</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <!-- 加密/解密内容 -->
+        <div class="tab-pane fade show active" id="encrypt" role="tabpanel" aria-labelledby="encrypt-tab">
+            <div class="row pt-3">
+                <div class="col-md-5">
+                    <textarea class="form-control" style="resize: none; min-height: 440px;" placeholder="在此输入明文，选择对应的加密方式，也可以加入密钥，然后加密即可。" id="source"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <form>
+                        <div class="form-group mt-4">
+                            <label for="encryptType">加密方式:</label>
+                            <select class="form-control" id="encryptType">
+                                <option value="AES">AES</option>
+                                <option value="DES">DES</option>
+                                <!-- 其他加密方式 -->
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="text" name="text" id="pwd" placeholder="在此输入密钥" autocomplete="off" class="form-control">
+                            <small class="form-text text-muted">密码是可选项，也就是可以不填。</small>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="button" class="btn btn-primary" onclick="encryptDecrypt('encrypt');">加密</button>
+                            <button type="button" class="btn btn-primary" onclick="encryptDecrypt('decrypt');">解密</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                    <textarea class="form-control" name="cipher" placeholder="加密后的密文会显示在这里。也可以是待解密的密文。" style="resize: none; min-height: 440px;" id="result" ondblclick="this.focus();this.select();"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="url" role="tabpanel" aria-labelledby="url-tab">
+            <!-- URL转码内容 -->
+            <div class="row pt-3">
+                <div class="col-md-5">
+                    <textarea class="form-control" style="resize: none; min-height: 440px;" placeholder="在此输入URL，然后进行转码。" id="urlInput">http://example.com我是一个中文</textarea>
+                </div>
+                <div class="col-md-2">
+                    <form>
+                        <div class="form-group mt-4">
+                            <label for="urlAction">操作:</label>
+                            <select class="form-control" id="urlAction">
+                                <option value="encodeURI">encodeURI</option>
+                                <option value="encodeURIComponent">encodeURIComponent</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="button" class="btn btn-primary" onclick="encodeURL();">编码</button>
+                            <button type="button" class="btn btn-primary" onclick="decodeURL();">解码</button>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="button" class="btn btn-danger" onclick="clearURL();">清空</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                    <textarea class="form-control" name="urlOutput" placeholder="转码后的URL会显示在这里。" style="resize: none; min-height: 440px;" id="urlOutput" ondblclick="this.focus();this.select();"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="ascii" role="tabpanel" aria-labelledby="ascii-tab">
+            <!-- ascii转码内容 -->
+            <div class="row pt-3">
+                <div class="col-md-5">
+                    <textarea class="form-control" style="resize: none; min-height: 440px;" placeholder="在此输入文本，然后进行ASCII转换。" id="asciiInput"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group mt-4">
+                        <button type="button" class="btn btn-primary" onclick="convertToASCII();">转换为ASCII</button>
+                    </div>
+                    <div class="form-group mt-3">
+                        <button type="button" class="btn btn-primary" onclick="convertFromASCII();">从ASCII转换</button>
+                    </div>
+                    <div class="form-group mt-3">
+                        <button type="button" class="btn btn-danger" onclick="clearASCII();">清空</button>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <textarea class="form-control" name="asciiOutput" placeholder="转换后的ASCII码会显示在这里。" style="resize: none; min-height: 440px;" id="asciiOutput" ondblclick="this.focus();this.select();"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="unicode" role="tabpanel" aria-labelledby="unicode-tab">
+            <!-- unicode转码内容 -->
+            <div class="row pt-3">
+                <div class="col-md-5">
+                    <textarea class="form-control" style="resize: none; min-height: 440px;" placeholder="在此输入文本，然后进行Unicode转换。" id="unicodeInput"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group mt-4">
+                        <button type="button" class="btn btn-primary" onclick="convertToUnicode();">转换为Unicode</button>
+                    </div>
+                    <div class="form-group mt-3">
+                        <button type="button" class="btn btn-primary" onclick="convertFromUnicode();">从Unicode转换</button>
+                    </div>
+                    <div class="form-group mt-3">
+                        <button type="button" class="btn btn-danger" onclick="clearUnicode();">清空</button>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <textarea class="form-control" name="unicodeOutput" placeholder="转换后的Unicode码会显示在这里。" style="resize: none; min-height: 440px;" id="unicodeOutput" ondblclick="this.focus();this.select();"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="md5" role="tabpanel" aria-labelledby="md5-tab">
+            <!-- 在这里添加MD5内容 -->
+            <div class="row pt-3">
+                <div class="col-md-5">
+                    <textarea class="form-control" style="resize: none; min-height: 440px;" placeholder="在此输入文本，然后进行MD5加密。" id="md5Input"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group mt-4">
+                        <button type="button" class="btn btn-primary" onclick="generateMD5();">生成MD5</button>
+                    </div>
+                    <div class="form-group mt-3">
+                        <button type="button" class="btn btn-danger" onclick="clearMD5();">清空</button>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="md5Output">32位大写:</label>
+                        <textarea class="form-control" name="md5Output" placeholder="32位大写MD5加密结果" style="resize: none; min-height: 110px;" id="md5Output32Upper" readonly></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="md5Output">32位小写:</label>
+                        <textarea class="form-control" name="md5Output" placeholder="32位小写MD5加密结果" style="resize: none; min-height: 110px;" id="md5Output32Lower" readonly></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="md5Output">16位大写:</label>
+                        <textarea class="form-control" name="md5Output" placeholder="16位大写MD5加密结果" style="resize: none; min-height: 110px;" id="md5Output16Upper" readonly></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="md5Output">16位小写:</label>
+                        <textarea class="form-control" name="md5Output" placeholder="16位小写MD5加密结果" style="resize: none; min-height: 110px;" id="md5Output16Lower" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="conversion" role="tabpanel" aria-labelledby="conversion-tab">
+            <!-- 在这里添加进制转换内容 -->
+            <div class="row pt-3">
+                <div class="col-md-5">
+                    <textarea class="form-control" style="resize: none; min-height: 440px;" placeholder="在此输入要转换的数字。" id="conversionInput"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <form>
+                        <div class="form-group mt-4">
+                            <label for="inputBase">输入进制:</label>
+                            <select class="form-control" id="inputBase">
+                                <option value="2">二进制</option>
+                                <option value="8">八进制</option>
+                                <option value="10">十进制</option>
+                                <option value="16">十六进制</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="outputBase">输出进制:</label>
+                            <select class="form-control" id="outputBase">
+                                <option value="2">二进制</option>
+                                <option value="8">八进制</option>
+                                <option value="10">十进制</option>
+                                <option value="16">十六进制</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="button" class="btn btn-primary" onclick="convertNumber();">转换</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                    <textarea class="form-control" name="conversionOutput" placeholder="转换后的结果会显示在这里。" style="resize: none; min-height: 440px;" id="conversionOutput" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- 返回按钮 -->
+        <button type="button" class="btn btn-outline-primary mt-3" onclick="goBackToMenu()">返回菜单</button>
+    </div>
+</div>
+<!-- 引入 CryptoJS 库 -->
+<script src="/static/js/crypto-js.min.js"></script>
+<script>
+    // 加密/解密功能
+    function encryptDecrypt(action) {
+        var source = document.getElementById("source").value;
+        var result = document.getElementById("result");
+        var encryptType = document.getElementById("encryptType").value;
+        var pwd = document.getElementById("pwd").value;
+
+        if (!source) {
+            alert("请输入待加密的文本");
+            return;
+        }
+
+        if (!pwd && action === 'encrypt') {
+            alert("请输入密钥");
+            return;
+        }
+
+        // 加密操作
+        if (action === 'encrypt') {
+            if (encryptType === "AES") {
+                result.value = encryptAES(source, pwd);
+            } else if (encryptType === "DES") {
+                result.value = encryptDES(source, pwd);
+            }
+        }
+
+        // 解密操作
+        else if (action === 'decrypt') {
+            if (encryptType === "AES") {
+                result.value = decryptAES(source, pwd);
+            } else if (encryptType === "DES") {
+                result.value = decryptDES(source, pwd);
+            }
+        }
+    }
+
+    // AES 加密
+    function encryptAES(text, key) {
+        return CryptoJS.AES.encrypt(text, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 }).toString();
+    }
+
+    // AES 解密
+    function decryptAES(ciphertext, key) {
+        var bytes = CryptoJS.AES.decrypt(ciphertext, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+        return bytes.toString(CryptoJS.enc.Utf8);
+    }
+
+    // DES 加密
+    function encryptDES(text, key) {
+        return CryptoJS.DES.encrypt(text, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 }).toString();
+    }
+
+    // DES 解密
+    function decryptDES(ciphertext, key) {
+        var bytes = CryptoJS.DES.decrypt(ciphertext, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+        return bytes.toString(CryptoJS.enc.Utf8);
+    }
+
+    // URL 编码解码功能
+    function encodeURL() {
+        var urlInput = document.getElementById("urlInput").value;
+        var urlOutput = document.getElementById("urlOutput");
+
+        if (!urlInput) {
+            alert("请输入URL");
+            return;
+        }
+
+        var urlAction = document.getElementById("urlAction").value;
+        if (urlAction === "encodeURI") {
+            urlOutput.value = encodeURI(urlInput);
+        } else if (urlAction === "encodeURIComponent") {
+            urlOutput.value = encodeURIComponent(urlInput);
+        }
+    }
+
+    function decodeURL() {
+        var urlInput = document.getElementById("urlInput").value;
+        var urlOutput = document.getElementById("urlOutput");
+
+        if (!urlInput) {
+            alert("请输入URL");
+            return;
+        }
+
+        var urlAction = document.getElementById("urlAction").value;
+        if (urlAction === "encodeURI") {
+            urlOutput.value = decodeURI(urlInput);
+        } else if (urlAction === "encodeURIComponent") {
+            urlOutput.value = decodeURIComponent(urlInput);
+        }
+    }
+
+    // 清空 URL 输入框和输出框
+    function clearURL() {
+        document.getElementById("urlInput").value = "";
+        document.getElementById("urlOutput").value = "";
+    }
+
+    // ASCII转换功能
+    function convertToASCII() {
+        var asciiInput = document.getElementById("asciiInput").value;
+        var asciiOutput = document.getElementById("asciiOutput");
+
+        if (!asciiInput) {
+            alert("请输入文本");
+            return;
+        }
+
+        // 将文本转换为ASCII码
+        var asciiText = "";
+        for (var i = 0; i < asciiInput.length; i++) {
+            asciiText += asciiInput.charCodeAt(i) + " ";
+        }
+
+        asciiOutput.value = asciiText.trim();
+    }
+
+    // 从ASCII转换功能
+    function convertFromASCII() {
+        var asciiInput = document.getElementById("asciiInput");
+        var asciiOutput = document.getElementById("asciiOutput").value;
+
+        if (!asciiOutput) {
+            alert("请输入ASCII码");
+            return;
+        }
+
+        // 将ASCII码转换为文本
+        var asciiArray = asciiOutput.trim().split(" ");
+        var asciiText = "";
+        for (var i = 0; i < asciiArray.length; i++) {
+            asciiText += String.fromCharCode(parseInt(asciiArray[i]));
+        }
+
+        asciiInput.value = asciiText;
+    }
+
+    // 清空ASCII输入框和输出框
+    function clearASCII() {
+        document.getElementById("asciiInput").value = "";
+        document.getElementById("asciiOutput").value = "";
+    }
+    // Unicode转换功能
+    function convertToUnicode() {
+        var unicodeInput = document.getElementById("unicodeInput").value;
+        var unicodeOutput = document.getElementById("unicodeOutput");
+
+        if (!unicodeInput) {
+            alert("请输入文本");
+            return;
+        }
+
+        // 将文本转换为Unicode码
+        var unicodeText = "";
+        for (var i = 0; i < unicodeInput.length; i++) {
+            unicodeText += "\\u" + unicodeInput.charCodeAt(i).toString(16).toUpperCase();
+        }
+
+        unicodeOutput.value = unicodeText;
+    }
+
+    // 从Unicode转换功能
+    function convertFromUnicode() {
+        var unicodeInput = document.getElementById("unicodeInput");
+        var unicodeOutput = document.getElementById("unicodeOutput").value;
+
+        if (!unicodeOutput) {
+            alert("请输入Unicode码");
+            return;
+        }
+
+        // 将Unicode码转换为文本
+        unicodeOutput = unicodeOutput.replace(/\\u/g, "%u");
+        unicodeInput.value = unescape(unicodeOutput);
+    }
+
+    // 清空Unicode输入框和输出框
+    function clearUnicode() {
+        document.getElementById("unicodeInput").value = "";
+        document.getElementById("unicodeOutput").value = "";
+    }
+
+    // 生成MD5加密
+    function generateMD5() {
+        var md5Input = document.getElementById("md5Input").value;
+        var md5Output32Upper = document.getElementById("md5Output32Upper");
+        var md5Output32Lower = document.getElementById("md5Output32Lower");
+        var md5Output16Upper = document.getElementById("md5Output16Upper");
+        var md5Output16Lower = document.getElementById("md5Output16Lower");
+
+        if (!md5Input) {
+            alert("请输入文本");
+            return;
+        }
+
+        // 使用CryptoJS库生成MD5加密
+        var md5 = CryptoJS.MD5(md5Input).toString();
+
+        // 分别获取32位和16位的大写和小写形式
+        var md5_32_upper = md5.toUpperCase();
+        var md5_32_lower = md5.toLowerCase();
+        var md5_16_upper = md5_32_upper.substring(8, 24);
+        var md5_16_lower = md5_32_lower.substring(8, 24);
+
+        // 将结果显示在对应的文本框中
+        md5Output32Upper.value = md5_32_upper;
+        md5Output32Lower.value = md5_32_lower;
+        md5Output16Upper.value = md5_16_upper;
+        md5Output16Lower.value = md5_16_lower;
+    }
+
+    // 清空MD5输入框和输出框
+    function clearMD5() {
+        document.getElementById("md5Input").value = "";
+        document.getElementById("md5Output32Upper").value = "";
+        document.getElementById("md5Output32Lower").value = "";
+        document.getElementById("md5Output16Upper").value = "";
+        document.getElementById("md5Output16Lower").value = "";
+    }
+
+    // 进制转换
+    function convertNumber() {
+        var conversionInput = document.getElementById("conversionInput").value;
+        var inputBase = parseInt(document.getElementById("inputBase").value);
+        var outputBase = parseInt(document.getElementById("outputBase").value);
+        var conversionOutput = document.getElementById("conversionOutput");
+
+        if (!conversionInput) {
+            alert("请输入要转换的数字");
+            return;
+        }
+
+        // 将输入数字转换为十进制
+        var decimalNumber = parseInt(conversionInput, inputBase);
+
+        // 根据输出进制，转换为相应进制的字符串
+        var result = decimalNumber.toString(outputBase).toUpperCase();
+
+        // 将结果显示在输出框中
+        conversionOutput.value = result;
+    }
+
+      // 返回到菜单页面
+      function goBackToMenu() {
+          window.location.href = "/Menu";
+      }
+</script>
+{% include 'footer.html' %}
