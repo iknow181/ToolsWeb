@@ -31,33 +31,30 @@
                     <div class="collapse navbar-collapse" id="navbarSupportContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{ url_for('welcome') }}">首页<span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('nmapfun') }}">nmap</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">数据转码</a>
+                                <a class="nav-link" href="{{ url_for('Welcome') }}">首页<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    下拉菜单
+                                <a class="nav-link dropdown-toggle" href="{{ url_for('Menu') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    功能菜单
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item">item1</a>
+                                    <a class="dropdown-item" href="{{ url_for('NmapFun') }}">Nmap</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item">item2</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item">item3</a>
+                                    <a class="dropdown-item" href="{{ url_for('DataConversion') }}">DataConversion</a>
                                 </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">待开发中...</a>
                             </li>
                         </ul>
+                        <!-- 添加退出登录按钮 -->
+                        <form class="form-inline my-2 my-lg-0">
+                            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" formaction="{{ url_for('logout') }}">退出登录</button>
+                        </form>
                     </div>
                 </nav>
             </div>
         </div>
     </div>
 </nav>
+    <div class="container-fluid bg-white py-4"></div>
