@@ -1,4 +1,4 @@
-{% include 'header.html' %}  }
+{% include 'header.html' %}
 <script>
   // 在页面加载前，使用 JavaScript 动态设置标题
   window.onload = function() {
@@ -34,8 +34,8 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
-                        <a href="{{ url_for('nmapfun') }}" class="list-group-item list-group-item-action custom-menu-item">nmap</a>
-                        <a href="#" class="list-group-item list-group-item-action custom-menu-item">数据加密</a>
+                        <a href="{{ url_for('NmapFun') }}" class="list-group-item list-group-item-action custom-menu-item">Nmap</a>
+                        <a href="{{ url_for('DataConversion') }}" class="list-group-item list-group-item-action custom-menu-item">DataEncoding</a>
                     </ul>
                 </div>
             </div>
